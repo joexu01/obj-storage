@@ -25,6 +25,7 @@ func StartLocate() {
 	c := q.Consume()
 	// 遍历返回的go channel
 	for msg := range c {
+		// 消息的正文内容（Body）是需要做定位的对象的名称
 		obj, err := strconv.Unquote(string(msg.Body))
 		if err != nil {
 			panic(err)

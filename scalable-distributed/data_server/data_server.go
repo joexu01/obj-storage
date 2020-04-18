@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	go heartbeat.StartHeartbeat()
-	go locate.StartLocate()
+	go heartbeat.StartHeartbeat()  // 不断发送本节点地址
+	go locate.StartLocate()  // 文件定位服务
 	http.HandleFunc("/objects/", objects.Handler)
 	log.Fatal(http.ListenAndServe(
 		os.Getenv("LISTEN_ADDRESS"), nil))

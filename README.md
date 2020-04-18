@@ -3,3 +3,5 @@
 ## Dependencies
 
 * [amqp](https://github.com/streadway/amqp)
+
+* elasticsearch v7

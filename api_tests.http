@@ -9,3 +9,44 @@ Content-Type: application/json
 {
     "content": "test text"
 }
+
+### 创建Index
+PUT http://localhost:9200/object?pretty=
+Accept: application/json/*
+
+###
+POST http://localhost:9200/object/_doc/1?pretty=
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Golang",
+  "teacher": "123456"
+}
+
+###
+POST http://localhost:9200/object/_doc/2?pretty=
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Java",
+  "teacher": "007"
+}
+
+###
+POST http://localhost:9200/object/_doc/3?pretty=
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Python",
+  "teacher": "009"
+}
+
+###
+GET http://localhost:9200/object/_doc/1?pretty=
+
+
+###
+GET http://localhost:9200/object/_search?q=name:Golang&size=1
