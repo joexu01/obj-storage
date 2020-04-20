@@ -78,5 +78,18 @@ func put(w http.ResponseWriter, r *http.Request) {
 }
 
 func del(w http.ResponseWriter, r *http.Request) {
+	name := strings.Split(r.URL.EscapedPath(), "/")[2]
+	version, err := es.SearchLatestVersion(name)
+	if err != nil {
+		log.Println("error handling delete request:", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
+	err = es.PutMetadata(name, version.Version+1, 0, "")
+	if err != nil {
+		log.Println("error handling delete request:", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }

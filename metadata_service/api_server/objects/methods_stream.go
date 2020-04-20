@@ -3,8 +3,8 @@ package objects
 import (
 	"fmt"
 	"github.com/joexu01/obj-storage/lib/objectstream"
-	"github.com/joexu01/obj-storage/scalable-distributed/api_server/heartbeat"
-	"github.com/joexu01/obj-storage/scalable-distributed/api_server/locate"
+	"github.com/joexu01/obj-storage/metadata_service/api_server/heartbeat"
+	"github.com/joexu01/obj-storage/metadata_service/api_server/locate"
 	"io"
 )
 

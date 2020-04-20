@@ -34,7 +34,8 @@ type searchResult struct {
 
 func getMetadata(name string, versionId int) (meta Metadata, err error) {
 	// "http://ES_SERVER/metadata/objects/%s_%d/_source"
-	client, err := elastic.NewClient(elastic.SetSniff(false))
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false), elastic.SetURL(os.Getenv("ES_SERVER")))
 	if err != nil {
 		return
 	}
@@ -53,8 +54,11 @@ func getMetadata(name string, versionId int) (meta Metadata, err error) {
 	return
 }
 
+//SearchLatestVersion用来获取文件最新版本的
+//元数据
 func SearchLatestVersion(name string) (meta Metadata, err error) {
-	client, err := elastic.NewClient(elastic.SetSniff(false))
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false), elastic.SetURL(os.Getenv("ES_SERVER")))
 	if err != nil {
 		return
 	}
@@ -78,6 +82,9 @@ func SearchLatestVersion(name string) (meta Metadata, err error) {
 	return
 }
 
+//GetMetadata根据文件名和版本号
+//获取文件元数据，当版本号为0时
+//获取最新版本的元数据
 func GetMetadata(name string, version int) (Metadata, error) {
 	if version == 0 {
 		return SearchLatestVersion(name)
@@ -88,7 +95,8 @@ func GetMetadata(name string, version int) (Metadata, error) {
 func PutMetadata(name string, version int, size int64, hash string) error {
 	// request URL:
 	// "http://ES_SERVER/metadata/objects/%name_%version?op_type=create"
-	client, err := elastic.NewClient(elastic.SetSniff(false))
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false), elastic.SetURL(os.Getenv("ES_SERVER")))
 	if err != nil {
 		return err
 	}
@@ -123,7 +131,8 @@ func AddVersion(name, hash string, size int64) error {
 }
 
 func SearchAllVersions(name string, from, size int) ([]Metadata, error) {
-	client, err := elastic.NewClient(elastic.SetSniff(false))
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false), elastic.SetURL(os.Getenv("ES_SERVER")))
 	if err != nil {
 		return nil, err
 	}
@@ -152,8 +161,14 @@ func SearchAllVersions(name string, from, size int) ([]Metadata, error) {
 	return metas, nil
 }
 
-func DelMetadata(client *elastic.Client, name string, version int) {
-	_, err := client.Delete().
+func DelMetadata(name string, version int) {
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false), elastic.SetURL(os.Getenv("ES_SERVER")))
+	if err != nil {
+		log.Println("error deleting metadata:", err)
+		return
+	}
+	_, err = client.Delete().
 		Index("metadata").
 		Id(fmt.Sprintf("%s_%d", name, version)).
 		Do(context.Background())

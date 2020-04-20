@@ -50,3 +50,33 @@ GET http://localhost:9200/object/_doc/1?pretty=
 
 ###
 GET http://localhost:9200/object/_search?q=name:Golang&size=1
+
+###
+PUT http://10.29.102.173:9200/metadata?pretty=
+Accept: application/json
+Content-Type: application/json
+
+{
+  "mappings":{
+    "properties":{
+      "name":{
+        "type":"keyword"
+      },
+      "version":{
+        "type":"integer"
+      },
+      "size":{
+        "type":"integer"
+      },
+      "hash":{
+        "type":"text"
+      }
+    }
+  }
+}
+
+###
+GET http://10.29.2.1:12345/versions/test3
+
+###
+GET http://10.29.2.1:12345/objects/test3?version=2
