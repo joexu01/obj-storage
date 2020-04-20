@@ -4,25 +4,25 @@
 # 然后逐一启动服务
 
 # 运行Docker的RabbitMQ镜像，如果之前启动过镜像，就docker ps一下然后docker start [container ID]
-#sudo docker run --hostname localhost --name my-rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+sudo docker run --hostname localhost --name my-rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 #sudo docker start b3f5c778efb8
 
 # 运行elasticsearch，如果之前启动过镜像，就docker ps一下然后docker start [container ID]
-#sudo docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+sudo docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.6.2
 #sudo docker start 115ae795461a
 
 # 绑定RabbitMQ服务器地址
-#sudo ifconfig lo:9 10.29.102.173/16
+sudo ifconfig lo:9 10.29.102.173/16
 
 # 前六个是dataServers的IP，后两个是apiServers的IP
-#sudo ifconfig lo:1 10.29.1.1/16
-#sudo ifconfig lo:2 10.29.1.2/16
-#sudo ifconfig lo:3 10.29.1.3/16
-#sudo ifconfig lo:4 10.29.1.4/16
-#sudo ifconfig lo:5 10.29.1.5/16
-#sudo ifconfig lo:6 10.29.1.6/16
-#sudo ifconfig lo:7 10.29.2.1/16
-#sudo ifconfig lo:8 10.29.2.2/16
+sudo ifconfig lo:1 10.29.1.1/16
+sudo ifconfig lo:2 10.29.1.2/16
+sudo ifconfig lo:3 10.29.1.3/16
+sudo ifconfig lo:4 10.29.1.4/16
+sudo ifconfig lo:5 10.29.1.5/16
+sudo ifconfig lo:6 10.29.1.6/16
+sudo ifconfig lo:7 10.29.2.1/16
+sudo ifconfig lo:8 10.29.2.2/16
 
 export RABBITMQ_SERVER=amqp://test:test@10.29.102.173:5672
 export ES_SERVER=http://10.29.102.173:9200
